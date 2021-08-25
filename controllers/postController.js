@@ -2,6 +2,7 @@ const Post = require("../models/Post")
 const User = require("../models/User")
 
 
+// cr8 post
 exports.createNewPost = async (req, res) => {
 
           const newPost = new Post(req.body)
@@ -15,6 +16,8 @@ exports.createNewPost = async (req, res) => {
           }
 }
 
+
+// update post
 exports.updatePost = async (req, res) => {
           
           const post = await Post.findById(req.params.id)
@@ -37,6 +40,8 @@ exports.updatePost = async (req, res) => {
           }
 }
 
+
+// del a post
 exports.delPost = async (req, res) => {
           
           const post = await Post.findById(req.params.id)
@@ -55,6 +60,8 @@ exports.delPost = async (req, res) => {
           }
 }
 
+
+// un/like a post
 exports.likeUnlikePost = async (req, res) => {
           try {
                     const post = await Post.findById(req.params.id)
@@ -78,13 +85,15 @@ exports.likeUnlikePost = async (req, res) => {
                                         }
                               )
 
-                              res.status(200).json("The Post Has Been Unliked")
+                              res.status(200).json("The Post Has Been Disliked")
                     }
           } catch (err) {
                     res.status(500).json(err)
           }
 }
 
+
+// get a post
 exports.getApost = async (req, res) => {
           try {
                     const post = await Post.findById(req.params.id)
@@ -95,6 +104,8 @@ exports.getApost = async (req, res) => {
           }
 }
 
+
+// get all post
 exports.getAllPosts = async (req, res) => {
           try {
                     const allPosts = await Post.find()
@@ -105,6 +116,8 @@ exports.getAllPosts = async (req, res) => {
           }
 }
 
+
+// get timeline (of pple u followed) posts
 exports.getYourPostAndYourFrdPosts = async (req, res) => {
 
           try {
@@ -119,6 +132,19 @@ exports.getYourPostAndYourFrdPosts = async (req, res) => {
 
                     // show both user and frds posts
                     res.status(200).json(userPosts.concat(...friendPosts))
+          } catch (err) {
+                    res.status(500).json(err)
+          }
+}
+
+
+// get user's all posts
+exports.getUserOnlyPosts = async (req, res) => {
+          try {
+                    const user = await User.findOne({username: req.params.username})
+                    const posts =await Post.find({userId: user._id})
+
+                    res.status(200).json(posts)
           } catch (err) {
                     res.status(500).json(err)
           }

@@ -8,6 +8,8 @@ const helmet = require("helmet")
 
 dotenv.config()
 
+const PORT = process.env.PORT
+
 // db setup
 const dbSetup = require("./db/db")
 
@@ -33,6 +35,6 @@ app.use("/api/auth", authRoute)
 app.use("/api/posts", postRoute)
 
 
-app.listen(5000, () => {
-          console.log("Backend server is running");
+app.listen(process.env.PORT || PORT, () => {
+          console.log(`Backend server is running on port ${PORT}`);
 })

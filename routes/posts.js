@@ -7,6 +7,7 @@ const likeOrUnlikePost = require("../controllers/postController")
 const getAsinglePost = require("../controllers/postController")
 const allPosts = require("../controllers/postController")
 const getYourPostAndFollowings = require("../controllers/postController")
+const getUserOnlyPosts = require("../controllers/postController")
 
 // cr8 post
 router.post("/", newPostController.createNewPost)
@@ -31,9 +32,13 @@ router.get("/", allPosts.getAllPosts)
 // get a post from user posts
 router.get("/:id", getAsinglePost.getApost)
 
+
 // get ur post & timeline/posts (of pple u followed) 
 // to get only ur posts: use ur userId
-router.get("/timeline/all", getYourPostAndFollowings.getYourPostAndYourFrdPosts)
+router.get("/timeline/:userId", getYourPostAndFollowings.getYourPostAndYourFrdPosts)
+
+
+router.get("/profile/:username", getUserOnlyPosts.getUserOnlyPosts)
 
 
 module.exports = router
