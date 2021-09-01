@@ -34,6 +34,11 @@ app.use("/api/auth", authRoute)
 app.use("/api/posts", postRoute)
 
 
+app.get("/", (req, res) => {
+          res.send( "Welcome to my Rest API Template by Arabog" )
+})
+
+
 app.listen(process.env.PORT || PORT, () => {
           console.log(`Backend server is running on port ${PORT}`);
 })
